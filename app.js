@@ -17,7 +17,7 @@
 
         // Actualiza el brand del header con el título del config
         if (cfg.title && headerBrandEl) {
-          headerBrandEl.textContent = cfg.title;
+          headerBrandEl.textContent = baseTitle;
         }
 
         if (footerBrandEl) {
