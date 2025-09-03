@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>My Blog</title>
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      } catch (_) {}
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css" />
   <!-- Markdown parser (lightweight, from CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>

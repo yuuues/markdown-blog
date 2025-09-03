@@ -9,8 +9,14 @@
 
   // --- Tema (claro/oscuro) ---
   const THEME_KEY = 'theme';
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch (_) { return null; }
+  }
+  function safeSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) {}
+  }
   function getPreferredTheme() {
-    const stored = localStorage.getItem(THEME_KEY);
+    const stored = safeGet(THEME_KEY);
     if (stored === 'light' || stored === 'dark') return stored;
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
@@ -21,6 +27,11 @@
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
+    syncToggleUI(theme);
+  }
+  function syncToggleUI(theme) {
+    if (!themeToggleBtn) return;
+    themeToggleBtn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
   }
   // Inicializa el tema
   applyTheme(getPreferredTheme());
@@ -30,14 +41,14 @@
       const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       const next = current === 'dark' ? 'light' : 'dark';
       applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
+      safeSet(THEME_KEY, next);
     });
   }
   // Si el usuario no ha elegido manualmente, sigue el sistema
   const mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   if (mql) {
     mql.addEventListener?.('change', () => {
-      const stored = localStorage.getItem(THEME_KEY);
+      const stored = safeGet(THEME_KEY);
       if (stored !== 'light' && stored !== 'dark') {
         applyTheme(getPreferredTheme());
       }
