@@ -1,0 +1,27 @@
+# Pretty URLs for the Markdown Blog
+# Routes any unknown path (e.g., /about) to index.html so app.js can load files/<slug>.md
+
+# Disable MultiViews to avoid Apache content negotiation interfering with slugs
+Options -MultiViews
+
+RewriteEngine On
+# Adjust the base if this project is deployed in a subfolder. For root, keep '/'
+RewriteBase /
+
+# If the request points to an existing file or directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Otherwise, send everything to the SPA entry point
+RewriteRule ^ index.html [L]
+
+# Optional: simple cache headers for static assets (comment out if undesired)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+</IfModule>
