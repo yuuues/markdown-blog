@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Blog</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Markdown parser (lightweight, from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/" class="brand">Markdown Blog</a>
+      <a href="/index" class="nav-link">Inicio</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <article id="content" class="content" aria-live="polite">
+      <!-- El contenido del Markdown se cargará aquí dinámicamente -->
+    </article>
+  </main>
+
+  <footer class="site-footer">
+      <small>© <span id="year"></span> <span id="footer-brand"></span>Generado con <a href="https://github.com/yuuues/markdown-blog">MarkdownBlog</a>. With Love <3 and <a href="https://yuuu.es">YuuuEs</a></small>
+  </footer>
+</body>
+</html>
