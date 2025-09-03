@@ -3,6 +3,7 @@
   const contentEl = document.getElementById('content');
   const yearEl = document.getElementById('year');
   const footerBrandEl = document.getElementById('footer-brand');
+  const headerBrandEl = document.querySelector('.brand');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   let baseTitle = 'Markdown Blog';
@@ -13,6 +14,11 @@
       if (res.ok) {
         const cfg = await res.json();
         if (cfg.title) baseTitle = cfg.title;
+
+        // Actualiza el brand del header con el título del config
+        if (cfg.title && headerBrandEl) {
+          headerBrandEl.textContent = cfg.title;
+        }
 
         if (footerBrandEl) {
           let footerTxt = cfg.footerSpan ?? cfg.title ?? '';

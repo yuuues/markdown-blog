@@ -1,1 +1,7 @@
 .idea
+
+config.json
+
+# Ignore all content files in /files except the public ones
+files/*
+!files/404.md
