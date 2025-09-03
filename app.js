@@ -3,7 +3,7 @@
   const contentEl = document.getElementById('content');
   const yearEl = document.getElementById('year');
   const footerBrandEl = document.getElementById('footer-brand');
-  const headerBrandEl = document.querySelector('.brand');
+  const headerBrandEl = document.getElementById('brand');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   let baseTitle = 'Markdown Blog';
