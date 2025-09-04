@@ -1,20 +1,21 @@
-# Pretty URLs for the Markdown Blog
-# Routes any unknown path (e.g., /about) to index.html so app.js can load files/<slug>.md
+# Rewrite rules for SPA-style routing so the client app (app.js) resolves Markdown and 404
+# Works on Apache (e.g., Laragon). Place in the web root of the site.
 
-# Disable MultiViews to avoid Apache content negotiation interfering with slugs
-Options -MultiViews
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
 
-RewriteEngine On
-# Adjust the base if this project is deployed in a subfolder. For root, keep '/'
-RewriteBase /
+  # If the request is for an existing file or directory, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
 
-# If the request points to an existing file or directory, serve it directly
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
+  # Allow direct access to markdown files in /files
+  RewriteRule ^files/ - [L]
 
-# Otherwise, send everything to the SPA entry point
-RewriteRule ^ index.html [L]
+  # Otherwise, route everything to index.html (SPA)
+  RewriteRule ^ index.html [L]
+</IfModule>
 
 # Optional: simple cache headers for static assets (comment out if undesired)
 <IfModule mod_expires.c>
@@ -24,4 +25,8 @@ RewriteRule ^ index.html [L]
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType text/plain .md
 </IfModule>

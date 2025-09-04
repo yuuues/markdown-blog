@@ -91,7 +91,7 @@
 
   // Si no hay ruta, usamos "index"
   const slug = cleanPath === '' ? 'index' : cleanPath;
-  const mdUrl = `files/${slug}.md`;
+  const mdUrl = `/files/${slug}.md`;
 
   // Carga un fichero .md y lo renderiza
   async function loadMarkdown(url) {
@@ -106,9 +106,9 @@
       const firstH1 = contentEl.querySelector('h1');
       document.title = firstH1 ? `${firstH1.textContent} · ${baseTitle}` : baseTitle;
     } catch (err) {
-      if (url !== 'files/404.md') {
+      if (url !== '/files/404.md') {
         // Intenta cargar una página 404 personalizada
-        loadMarkdown('files/404.md');
+        loadMarkdown('/files/404.md');
       } else {
         contentEl.innerHTML = `<h1>404</h1><p>No se ha encontrado el recurso: <code>${escapeHtml(mdUrl)}</code></p>`;
       }
